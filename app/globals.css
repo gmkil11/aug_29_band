@@ -5,13 +5,6 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -23,4 +16,27 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* globals.css 또는 해당 컴포넌트에 추가 */
+[data-nextjs-toast] {
+  display: none !important;
+}
+
+/* React DevTools 버튼 숨기기 */
+.__react-dev-tools {
+  display: none !important;
+}
+
+/* Next.js 개발 도구 전체 숨기기 */
+#__next-dev-overlay-root {
+  display: none !important;
+}
+
+.data-nextjs-toast {
+    display: none !important;
+}
+
+.nextjs-toast-errors-parent {
+  display: none !important; /* Use !important if necessary to override default styles */
 }
