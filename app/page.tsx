@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import {Music, Calendar, MapPin, Users, Clock, ChevronDown, ChevronUp, Star} from 'lucide-react';
+import {Music, Calendar, MapPin, Users, Clock, ChevronDown, ChevronUp, Star, Navigation} from 'lucide-react';
 
 const SummerTapaPage = () => {
   const [selectedTeam, setSelectedTeam] = useState<number | null>(null);
+  const assetPrefix = process.env.ASSET_PREFIX || '';
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -30,6 +31,19 @@ const SummerTapaPage = () => {
     {
       id: 2,
       name: "SURGE",
+      member: "유민 은성 류시현 김기범 이도연",
+      setlist: [
+        "stay with me - 자우림",
+        "집 - 한로로",
+        "불 - 유다빈 밴드",
+        "유영 - 카더가든",
+        "beautiful things - Benson Boone",
+      ],
+      color: "from-green-400 to-blue-500"
+    },
+    {
+      id: 3,
+      name: "단국대",
       member: "유형근 안유민 김강태 박승원 오정훈 민수빈 박상아 박윤설",
       setlist: [
         "Pink+White - FRANK OCEAN",
@@ -42,19 +56,6 @@ const SummerTapaPage = () => {
       color: "from-orange-400 to-pink-500"
     },
     {
-      id: 3,
-      name: "단국대",
-      member: "유민 은성 류시현 김기범 이도연",
-      setlist: [
-        "stay with me - 자우림",
-        "집 - 한로로",
-        "불 - 유다빈 밴드",
-        "유영 - 카더가든",
-        "beautiful things - Benson Boone",
-      ],
-      color: "from-green-400 to-blue-500"
-    },
-    {
       id: 4,
       name: "한손에 총들고",
       member: "이성훈 길민규 김강태 임성렬 김동호",
@@ -62,7 +63,7 @@ const SummerTapaPage = () => {
         "청색증 - ThornApple",
         "12가지 말들 - 봉제인간",
         "세상만사 - 라이프 앤 타임",
-        "Robbed The Bank - 너드 커넥션",
+        "I Robbed A Bank - 너드 커넥션",
         "Answer Me - 브로큰 발렌타인",
         "Mozambique Drill - 브로큰 발렌타인",
         "Get Your Gun - 브로큰 발렌타인",
@@ -98,6 +99,28 @@ const SummerTapaPage = () => {
     }
   };
 
+  // 카카오 지도 앱 열기 함수
+  const openKakaoMap = () => {
+    const kakaoMapUrl = "https://kko.kakao.com/eMfWR7ugaS";
+
+    // 카카오맵 앱으로 열기 시도 (모바일)
+    if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      // 카카오맵 앱 스킴
+      const kakaoAppUrl = "kakaomap://look?p=37.5476,126.9227";
+
+      // 앱 열기 시도
+      window.location.href = kakaoAppUrl;
+
+      // 3초 후에도 페이지가 그대로 있으면 웹 버전으로 이동
+      setTimeout(() => {
+        window.open(kakaoMapUrl, '_blank');
+      }, 3000);
+    } else {
+      // 데스크톱에서는 바로 웹 버전 열기
+      window.open(kakaoMapUrl, '_blank');
+    }
+  };
+
   return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50">
         {/* Hero Section - 패럴랙스 효과 */}
@@ -105,7 +128,7 @@ const SummerTapaPage = () => {
           <div
               className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-75"
               style={{
-                backgroundImage: 'url(/summer.jpeg)',
+                backgroundImage: `url(${assetPrefix}/summer.jpeg)`,
                 filter: 'brightness(0.7)',
               }}
           />
@@ -178,12 +201,9 @@ const SummerTapaPage = () => {
 
             {/* 반응형 지도 이미지 - 클릭 가능 */}
             <div className="w-full max-w-4xl mb-8 sm:mb-12">
-              <div
-                  className="relative w-full aspect-video bg-gray-200 rounded-2xl overflow-hidden shadow transition-all duration-500 cursor-pointer hover:shadow-xl hover:scale-105 group"
-                  onClick={openNaverMap}
-              >
+              <div className="relative w-full aspect-video bg-gray-200 rounded-2xl overflow-hidden shadow transition-all duration-500 group">
                 <img
-                    src="/map.png"
+                    src={`${assetPrefix}/map.png`}
                     alt="FLEX LOUNGE 3호점 위치 지도"
                     className="w-full h-full object-contain bg-white transition-transform duration-500 group-hover:scale-110"
                     onError={(e) => {
@@ -191,11 +211,23 @@ const SummerTapaPage = () => {
                     }}
                 />
 
-                {/* 클릭 유도 오버레이 */}
+                {/* 지도 앱 선택 오버레이 */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 backdrop-blur-sm rounded-full px-6 py-3 flex items-center gap-3 text-gray-800 font-bold">
-                    <MapPin className="w-5 h-5 text-blue-600" />
-                    <span>네이버 지도에서 보기</span>
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-4">
+                    <button
+                        onClick={openNaverMap}
+                        className="bg-green-600/90 hover:bg-green-700 backdrop-blur-sm rounded-full px-4 py-3 flex items-center gap-2 text-white font-bold text-sm transition-all duration-300 hover:scale-105"
+                    >
+                      <Navigation className="w-4 h-4" />
+                      네이버 지도
+                    </button>
+                    <button
+                        onClick={openKakaoMap}
+                        className="bg-yellow-500/90 hover:bg-yellow-600 backdrop-blur-sm rounded-full px-4 py-3 flex items-center gap-2 text-white font-bold text-sm transition-all duration-300 hover:scale-105"
+                    >
+                      <MapPin className="w-4 h-4" />
+                      카카오맵
+                    </button>
                   </div>
                 </div>
 
@@ -204,13 +236,21 @@ const SummerTapaPage = () => {
                   <div className="text-center px-4">
                     <MapPin className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-6 text-gray-400" />
                     <p className="text-xl sm:text-2xl font-semibold mb-2">지도 이미지를 불러올 수 없습니다</p>
-                    <p className="text-lg">FLEX LOUNGE 3호점</p>
-                    <button
-                        className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors"
-                        onClick={openNaverMap}
-                    >
-                      네이버 지도에서 보기
-                    </button>
+                    <p className="text-lg mb-4">FLEX LOUNGE 3호점</p>
+                    <div className="flex gap-3 justify-center">
+                      <button
+                          className="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition-colors font-bold text-sm"
+                          onClick={openNaverMap}
+                      >
+                        네이버 지도
+                      </button>
+                      <button
+                          className="bg-yellow-500 text-white px-4 py-2 rounded-full hover:bg-yellow-600 transition-colors font-bold text-sm"
+                          onClick={openKakaoMap}
+                      >
+                        카카오맵
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -227,7 +267,7 @@ const SummerTapaPage = () => {
 
               {/* 추가 정보 카드 - 모바일 최적화 */}
               <div className="bg-white rounded-2xl shadow p-6 sm:p-8 shadow transition-shadow duration-300">
-                <h4 className="font-black text- sm:text-2xl mb-6 text-gray-800" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>
+                <h4 className="font-black text-xl sm:text-2xl mb-6 text-gray-800" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>
                   상세 위치 정보
                 </h4>
                 <div className="space-y-4 text-gray-700">
@@ -235,7 +275,7 @@ const SummerTapaPage = () => {
                     <MapPin className="w-5 h-5 sm:w-7 sm:h-7 text-blue-600 mt-1 flex-shrink-0" />
                     <div>
                       <p className="font-bold sm:text-xl">FLEX LOUNGE 3호점</p>
-                      <p className=" text-gray-600">서울 마포구 독막로 68 지층</p>
+                      <p className="text-gray-600">서울 마포구 독막로 68 지층</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -244,13 +284,22 @@ const SummerTapaPage = () => {
                       <p className="font-bold sm:text-xl">2025년 8월 29일(금) 19:00</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4">
+
+                  {/* 지도 앱 버튼들 */}
+                  <div className="flex flex-col sm:flex-row gap-3 pt-2">
                     <button
                         onClick={openNaverMap}
-                        className="flex items-center gap-3 bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition-colors font-bold text-sm sm:text-base"
+                        className="flex items-center gap-3 bg-green-600 text-white px-4 py-3 rounded-full hover:bg-green-700 transition-all duration-300 font-bold text-sm sm:text-base hover:scale-105"
+                    >
+                      <Navigation className="w-4 h-4 sm:w-5 sm:h-5" />
+                      네이버 지도에서 길찾기
+                    </button>
+                    <button
+                        onClick={openKakaoMap}
+                        className="flex items-center gap-3 bg-yellow-500 text-white px-4 py-3 rounded-full hover:bg-yellow-600 transition-all duration-300 font-bold text-sm sm:text-base hover:scale-105"
                     >
                       <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
-                      네이버 지도에서 길찾기
+                      카카오맵에서 길찾기
                     </button>
                   </div>
                 </div>
