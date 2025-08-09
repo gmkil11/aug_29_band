@@ -24,6 +24,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+        <link
+            rel="preload"
+            href="/fonts/ClimateCrisisKRVF.woff2"
+            as="font"
+            type="font/woff2"
+        />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

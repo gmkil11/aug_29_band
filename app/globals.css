@@ -12,6 +12,87 @@
   }
 }
 
+/* ClimateCrisisKR 폰트 패밀리 */
+@font-face {
+  font-family: 'ClimateCrisisKR';
+  src: url('/fonts/ClimateCrisisKRVF.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ClimateCrisisKR';
+  src: url('/fonts/ClimateCrisisKR-1979.woff2') format('woff2');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ClimateCrisisKR';
+  src: url('/fonts/ClimateCrisisKR-1990.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ClimateCrisisKR';
+  src: url('/fonts/ClimateCrisisKR-2000.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ClimateCrisisKR';
+  src: url('/fonts/ClimateCrisisKR-2010.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ClimateCrisisKR';
+  src: url('/fonts/ClimateCrisisKR-2019.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ClimateCrisisKR';
+  src: url('/fonts/ClimateCrisisKR-2030.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ClimateCrisisKR';
+  src: url('/fonts/ClimateCrisisKR-2040.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ClimateCrisisKR';
+  src: url('/fonts/ClimateCrisisKR-2050.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ClimateCrisisKR';
+  src: url('/fonts/ClimateCrisisKR-2050.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -34,9 +115,9 @@ body {
 }
 
 .data-nextjs-toast {
-    display: none !important;
+  display: none !important;
 }
 
 .nextjs-toast-errors-parent {
-  display: none !important; /* Use !important if necessary to override default styles */
+  display: none !important;
 }

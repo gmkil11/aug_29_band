@@ -140,23 +140,22 @@ const SummerTapaPage = () => {
                 className="flex flex-col items-center justify-center -space-y-4 sm:-space-y-6 md:-space-y-10"
             >
               <span
-                  className="text-[12em] sm:text-[18em] md:text-[24em] lg:text-[32em] font-black tracking-tighter text-[#D43939] leading-none"
+                  className="shadow-lg text-[12em] sm:text-[10em] md:text-[24em] lg:text-[15em] font-bold tracking-tighter text-[#fff] leading-none"
                   style={{
-                    fontFamily: "'Noto Serif KR', 'Playfair Display', serif",
+                    fontFamily: "'ClimateCrisisKR', serif",
                   }}
               >
-                夏
+              끝자
+              <span
+                  className="font-bold tracking-tighter text-[#D43939] leading-none"
+                  style={{
+                    fontFamily: "'ClimateCrisisKR', serif",
+                  }}
+              >
+                락
               </span>
-              <div
-                  className="text-[8em] sm:text-[12em] md:text-[16em] lg:text-[22em] text-white font-black leading-none -space-x-2 sm:-space-x-4 md:-space-x-8 flex"
-                  style={{
-                    fontFamily: "'Noto Serif KR', 'Playfair Display', serif",
-                  }}
-              >
-                <span>打 破</span>
-              </div>
+            </span>
             </div>
-
             {/* 반응형 정보 섹션 */}
             <div
                 className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-base sm:text-lg md:text-xl mt-20 sm:mt-8 opacity-0"
