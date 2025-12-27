@@ -9,6 +9,8 @@ module.exports = {
         extend: {
             fontFamily: {
                 'climate': ['ClimateCrisisKR', 'serif'],
+                'Sanhayeop': ['Sanhayeop', 'sans-serif'], 
+                'pretendard': ['Pretendard', 'sans-serif'],
             },
             colors: {
                 background: 'var(--background)',
