@@ -1,14 +1,13 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import {Music, Calendar, MapPin, Users, Clock, ChevronDown, ChevronUp, Star, Navigation, CreditCard, CheckCircle, Loader2} from 'lucide-react';
-import { collection, addDoc, doc, updateDoc, query, where, getDocs } from 'firebase/firestore';
+import React, { useState } from 'react';
+import {Music, Calendar, MapPin, Clock, ChevronDown, ChevronUp, Star, Navigation, CreditCard, CheckCircle, Loader2} from 'lucide-react';
+import { collection, addDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
 const SummerTapaPage = () => {
   const [selectedTeam, setSelectedTeam] = useState<number | null>(null);
   const assetPrefix = process.env.ASSET_PREFIX || '';
-  const [scrollY, setScrollY] = useState(0);
   
   // 예약 관련 상태
   const [reservationStep, setReservationStep] = useState<'initial' | 'form' | 'payment' | 'completed'>('initial');
@@ -17,12 +16,6 @@ const SummerTapaPage = () => {
   const [reservationId, setReservationId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const teams = [
     {
@@ -160,17 +153,21 @@ const SummerTapaPage = () => {
       
       setReservationId(docRef.id);
       setReservationStep('payment');
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('예약 저장 오류:', err);
       
       // 더 자세한 에러 메시지 제공
       let errorMessage = '예약 저장 중 오류가 발생했습니다.';
       
-      if (err?.code === 'permission-denied') {
-        errorMessage = '권한이 거부되었습니다. Firestore 보안 규칙을 확인해주세요.';
-      } else if (err?.code === 'unavailable') {
-        errorMessage = 'Firestore 서비스를 사용할 수 없습니다. 네트워크 연결을 확인해주세요.';
-      } else if (err?.message) {
+      if (err && typeof err === 'object' && 'code' in err) {
+        if (err.code === 'permission-denied') {
+          errorMessage = '권한이 거부되었습니다. Firestore 보안 규칙을 확인해주세요.';
+        } else if (err.code === 'unavailable') {
+          errorMessage = 'Firestore 서비스를 사용할 수 없습니다. 네트워크 연결을 확인해주세요.';
+        }
+      }
+      
+      if (err instanceof Error && err.message) {
         errorMessage = err.message;
       }
       
